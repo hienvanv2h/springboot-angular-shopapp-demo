@@ -1,0 +1,174 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="intro-section">
+    <h1 class="user-detail-title">Thông tin tài khoản</h1>
+  </div>
+
+  <div class="row">
+    {{ userDetailForm.value | json }}
+    {{ userDetailForm.valid }}
+    {{ userDetailForm.invalid }}
+    <form [formGroup]="userDetailForm" (ngSubmit)="saveUpdate()">
+      <div class="col-md-4 mx-auto">
+        <div class="mb-3">
+          <label for="name" class="form-label"
+            [ngClass]="{'required-asterisk': true}">Họ và tên:</label>
+          <input type="text" id="name" class="form-control"
+            formControlName="fullname"
+            [class.is-invalid]="fullname?.invalid && (fullname?.dirty || fullname?.touched)" />
+          <div
+            *ngIf="fullname?.invalid && (fullname?.dirty || fullname?.touched)">
+            <small *ngIf="fullname?.errors?.['required']" class="text-danger">
+              Họ và tên không thể để trống
+            </small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" id="email" class="form-control"
+            formControlName="email"
+            [class.is-invalid]="email?.invalid && (email?.dirty || email?.touched)" />
+          <div
+            *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+            <small *ngIf="email?.errors?.['email']" class="text-danger">
+              Email không hợp lệ
+            </small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label"
+            [ngClass]="{'required-asterisk': true}">Số điện thoại</label>
+          <input type="text" id="phone" class="form-control"
+            formControlName="phone_number"
+            [class.is-invalid]="phone_number?.invalid && (phone_number?.dirty || phone_number?.touched)" />
+          <div
+            *ngIf="phone_number?.invalid && (phone_number?.dirty || phone_number?.touched)">
+            <small *ngIf="phone_number?.errors?.['required']"
+              class="text-danger">
+              Số điện thoại không thể để trống
+            </small>
+            <small *ngIf="phone_number?.errors?.['pattern']"
+              class="text-danger">
+              Số điện thoại cần có 10 ký tự
+            </small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="address" class="form-label">Địa chỉ</label>
+          <input type="text" id="address" class="form-control"
+            formControlName="address"
+            [class.is-invalid]="address?.invalid && (address?.dirty || address?.touched)" />
+          <div
+            *ngIf="address?.invalid && (address?.dirty || address?.touched)">
+            <small
+              *ngIf="address?.errors?.['minlength']" class="text-danger">
+              Địa chỉ cần ít nhất 5 ký tự
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <button class="btn btn-danger"
+            *ngIf="!showPasswordFields"
+            (click)="togglePasswordFields()">Đổi mật khẩu</button>
+          <ng-container *ngIf="showPasswordFields">
+            <div class="password-field">
+              <label for="password" class="form-label">Mật khẩu</label>
+              <span class="input-wrapper">
+                <input [type]="showPasswordContent ? 'text' : 'password'"
+                  id="password" class="form-control"
+                  formControlName="password"
+                  [class.is-invalid]="password?.invalid && (password?.dirty || password?.touched)">
+                <ng-container>
+                  <i class="fa-solid fa-eye-slash password-toggle"
+                    *ngIf="!showPasswordContent"
+                    (click)="togglePasswordVisibility()"></i>
+                  <i class="fa-solid fa-eye password-toggle"
+                    *ngIf="showPasswordContent"
+                    (click)="togglePasswordVisibility()"></i>
+                </ng-container>
+              </span>
+              <div
+                *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+                <span *ngIf="password?.errors?.['minlength']"
+                  class="text-danger">
+                  Mật khẩu cần có ít nhất 3 ký tự
+                </span>
+              </div>
+            </div>
+
+            <div class="password-field">
+              <label for="retype-password" class="form-label">
+                Xác nhận mật khẩu
+              </label>
+              <span class="input-wrapper">
+                <input [type]="showPasswordContent ? 'text' : 'password'"
+                  id="retype-password" class="form-control"
+                  formControlName="retype_password"
+                  [class.is-invalid]="retype_password?.invalid && (retype_password?.dirty || retype_password?.touched)">
+                <ng-container>
+                  <i class="fa-solid fa-eye-slash password-toggle"
+                    *ngIf="!showPasswordContent"
+                    (click)="togglePasswordVisibility()"></i>
+                  <i class="fa-solid fa-eye password-toggle"
+                    *ngIf="showPasswordContent"
+                    (click)="togglePasswordVisibility()"></i>
+                </ng-container>
+              </span>
+              <div
+                *ngIf="retype_password?.errors || retype_password?.invalid && (retype_password?.dirty || retype_password?.touched)">
+                <div
+                  *ngIf="retype_password?.errors?.['minlength']"
+                  class="text-danger">
+                  Mật khẩu cần có ít nhất 3 ký tự
+                </div>
+                <div *ngIf="retype_password?.errors?.['passwordMismatch']"
+                  class="text-danger">
+                  Mật khẩu không khớp
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-2">
+              <button class="btn btn-danger"
+                (click)="updateNewPassword(true)"
+                [class.btn-disabled]="password?.invalid || retype_password?.invalid">
+                Xác nhận
+              </button>
+              <button class="btn btn-secondary ms-2"
+                (click)="updateNewPassword(false)">Hủy</button>
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="mb-3">
+          <label for="date-of-birth" class="form-label">Ngày sinh</label>
+          <input type="date" class="form-control"
+            formControlName="date_of_birth">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Tài khoản đã liên kết</label>
+          <div class="linked-accounts">
+            <ng-container *ngFor="let account of linkedAccounts">
+              <label for="social-account"
+                class="form-label">{{account.provider}}</label>
+              <input type="text" readonly class="form-control"
+                value="{{account.id}}">
+            </ng-container>
+          </div>
+        </div>
+
+        <div>
+          <button class="btn btn-primary text-center"
+            [class.btn-disabled]="!userDetailForm.valid || !userDetailForm.dirty">
+            Lưu thay đổi
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-footer></app-footer>

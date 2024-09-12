@@ -1,0 +1,166 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="intro-section">
+    <h1>Thông tin đơn hàng</h1>
+    <p>
+      Vui lòng nhập đầy đủ thông tin để tiến hành đặt hàng
+    </p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <h2 class="product-header">Thông tin người nhận</h2>
+
+      <form [formGroup]="orderForm">
+        <div class="mb-3">
+          <label for="name" class="form-label"
+            [ngClass]="{'required-asterisk': true}">Họ và tên:</label>
+          <input type="text" id="name" class="form-control"
+            formControlName="fullname"
+            [class.is-invalid]="fullname?.invalid && (fullname?.dirty || fullname?.touched)" />
+          <div
+            *ngIf="fullname?.invalid && (fullname?.dirty || fullname?.touched)">
+            <small *ngIf="fullname?.errors?.['required']" class="text-danger">
+              Họ và tên không thể để trống
+            </small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" id="email" class="form-control"
+            formControlName="email"
+            [class.is-invalid]="email?.invalid && (email?.dirty || email?.touched)" />
+          <div
+            *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+            <small *ngIf="email?.errors?.['email']" class="text-danger">
+              Email không hợp lệ
+            </small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label"
+            [ngClass]="{'required-asterisk': true}">Số điện thoại</label>
+          <input type="text" id="phone" class="form-control"
+            formControlName="phone_number"
+            [class.is-invalid]="phone_number?.invalid && (phone_number?.dirty || phone_number?.touched)" />
+          <div
+            *ngIf="phone_number?.invalid && (phone_number?.dirty || phone_number?.touched)">
+            <small *ngIf="phone_number?.errors?.['required']"
+              class="text-danger">
+              Số điện thoại không thể để trống
+            </small>
+            <small *ngIf="phone_number?.errors?.['pattern']"
+              class="text-danger">
+              Số điện thoại cần có 10 ký tự
+            </small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="address" class="form-label">Địa chỉ</label>
+          <input type="text" id="address" class="form-control"
+            formControlName="address" (input)="onAddressChange()"
+            [class.is-invalid]="address?.invalid && (address?.dirty || address?.touched)"
+            [ngModel] />
+          <div
+            *ngIf="address?.invalid && (address?.dirty || address?.touched)">
+            <small
+              *ngIf="address?.errors?.['minlength']" class="text-danger">
+              Địa chỉ cần ít nhất 5 ký tự
+            </small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="address" class="form-label"
+            [ngClass]="{'required-asterisk': true}">Địa chỉ giao hàng</label>
+          <input type="text" id="address" class="form-control"
+            formControlName="shipping_address"
+            [class.is-invalid]="shipping_address?.invalid && (shipping_address?.dirty || shipping_address?.touched)" />
+          <div
+            *ngIf="shipping_address?.invalid && (shipping_address?.dirty || shipping_address?.touched)">
+            <small
+              *ngIf="shipping_address?.errors?.['required'] || shipping_address?.errors?.['minlength']"
+              class="text-danger">
+              Vui lòng ghi chính xác địa chỉ giao hàng
+            </small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="note" class="form-label">Ghi chú</label>
+          <input type="text" id="note" class="form-control"
+            placeholder="Ghi chú giao hàng..."
+            formControlName="note" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label"
+            [ngClass]="{'required-asterisk': true}">
+            Phương thức vận chuyển
+          </label>
+          <select class="form-control mb-3" formControlName="shipping_method">
+            <option value="EXPRESS">Nhanh (EXPRESS)</option>
+            <option value="NORMAL">Thường (NORMAL)</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label"
+            [ngClass]="{'required-asterisk': true}">
+            Phương thức thanh toán
+          </label>
+          <select class="form-control mb-3" formControlName="payment_method">
+            <option value="CARD">Chuyển khoản</option>
+            <option value="COD">Thanh toán khi nhận hàng (COD)</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-8">
+      <h2 class="product-order">Sản phẩm đã đặt hàng</h2>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Sản phẩm</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Đơn giá</th>
+            <th scope="col">Tổng tiền</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cartItems">
+            <td>
+              <div class="product-info">
+                <img [src]="item.product.thumbnail_url" alt="Product Image"
+                  class="product-image" />
+                <span>Tên SP</span>
+              </div>
+            </td>
+            <td>{{item.quantity}} </td>
+            <td>{{item.product.price | currency: 'VND':'symbol':'1.2-2' }}</td>
+            <td>
+              {{(item.quantity || 0) * item.product.price | currency:
+              'VND':'symbol':'1.2-2'}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="text-end mt-3">
+        <h4>Tổng giá: {{ orderForm.get('total_money')?.value | currency:
+          'VND':'symbol':'1.2-2' }} </h4>
+      </div>
+      <div class="mb-3">
+        <h4 class="coupon-header">Nhập mã giảm giá:</h4>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Mã giảm giá" />
+          <button class="btn btn-gradient" type="button"
+            (click)="applyCoupon()">Áp dụng</button>
+        </div>
+      </div>
+      <div class="mb-3 d-flex justify-content-center">
+        <button class="btn btn-gradient" type="button"
+          (click)="placeOrder()">Đặt hàng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

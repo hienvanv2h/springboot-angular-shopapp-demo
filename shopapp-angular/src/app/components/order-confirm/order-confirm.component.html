@@ -1,0 +1,48 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="confirmation-container">
+    <h1>Xác nhận đơn hàng</h1>
+    <p>
+      Dưới đây là thông tin chi tiết về đơn hàng của bạn
+    </p>
+  </div>
+  <div class="row">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Sản phẩm</th>
+          <th scope="col">Số lượng</th>
+          <th scope="col">Đơn giá</th>
+          <th scope="col">Tổng tiền</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of orderResponse.order_details">
+          <td>
+            <div class="product-info">
+              <img [src]="item.product.thumbnail_url"
+                alt="Product Image" class="product-image" />
+              <span class="product-name">{{item.product.name}}</span>
+            </div>
+          </td>
+          <td>{{item.number_of_products}} </td>
+          <td>{{ (item.price || 0) | currency: 'VND':'symbol':'1.2-2' }}</td>
+          <td>
+            {{ (item.total_money || 0) |
+            currency:'VND':'symbol':'1.2-2' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex gap-4 justify-content-center text-center mt-3 mb-2">
+    <button class="btn btn-gradient" routerLink="/orders">
+      Trở về giỏ hàng
+    </button>
+    <button class="btn btn-gradient"
+      (click)="confirmOrder()">Xác nhận đặt hàng</button>
+  </div>
+</div>
+
+<app-footer></app-footer>

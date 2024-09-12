@@ -1,0 +1,11 @@
+@import "../../styles/shared-styles.scss";
+
+.confirmation-container {
+  width: 600px;
+  padding: 1.5rem;
+  margin: 40px auto;
+  border-radius: 1rem;
+  box-shadow: 0 0 4px rgba($color: $light-color-2, $alpha: 0.4);
+}
+
+// Shared style in style.scss

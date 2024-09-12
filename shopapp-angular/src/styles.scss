@@ -1,0 +1,113 @@
+@import "./app/styles/shared-styles.scss";
+
+/* You can add global styles to this file, and also import other style files */
+body {
+  background: $shopapp-background-color-gradient;
+}
+
+.container {
+  color: $light-color-1;
+  margin: 1rem auto;
+}
+
+.intro-section {
+  color: $light-color-1;
+  padding: 1rem;
+  text-align: center;
+}
+
+app-root > * {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+router-outlet {
+  display: none;
+}
+
+app-root > * > .container {
+  flex-grow: 1;
+}
+
+.btn-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+app-order,
+app-order-confirm {
+  // Table
+  table {
+    width: 100%;
+    background-color: $shopapp-background-color;
+    color: $light-color-1;
+    border: 1px solid $light-color-2;
+    border-radius: 0.5rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    padding: 0.5rem;
+
+    th,
+    td {
+      text-align: center;
+      padding: 0.5rem 0;
+    }
+
+    td {
+      border-top: 1px solid $light-color-2;
+      min-width: 5rem;
+    }
+
+    td:has(> .product-info) {
+      width: 70%;
+    }
+  }
+
+  .product-info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    padding-left: 4rem;
+  }
+
+  .product-image {
+    height: 80px;
+    width: 120px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .product-name {
+    text-align: justify;
+  }
+
+  .btn-gradient {
+    background: linear-gradient(to right, $gradient-color-1, $gradient-color-2);
+    color: $light-color-1;
+    border-radius: 1.5rem;
+    width: 200px;
+  }
+
+  .btn-gradient:hover {
+    background: linear-gradient(to right, $gradient-color-3, $gradient-color-4);
+  }
+}
+
+// Shared form control box shadow for autocomplete
+.form-control:-webkit-autofill,
+.form-control:-webkit-autofill:hover,
+.form-control:-webkit-autofill:focus,
+.form-control:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-box-shadow: 0 0 0 1000px $shopapp-background-color inset;
+  -webkit-text-fill-color: $light-color-1;
+}
+
+// style for required field
+.required-asterisk::after {
+  content: " *";
+  color: red;
+}

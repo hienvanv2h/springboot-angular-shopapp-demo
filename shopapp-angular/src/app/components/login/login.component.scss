@@ -1,0 +1,109 @@
+@import "../../styles/shared-styles.scss";
+
+.login-form {
+  background-color: $dark-color-1;
+  padding: 1rem 2rem;
+  max-width: 500px;
+  border-radius: 0.5rem;
+}
+
+.login-header {
+  text-align: center;
+  color: $shopapp-title-color;
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  // border: none;
+  background: transparent;
+  color: $light-color-1;
+  margin-top: 0.5rem;
+}
+
+.form-control:-webkit-autofill,
+.form-control:-webkit-autofill:hover,
+.form-control:-webkit-autofill:focus,
+.form-control:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-box-shadow: 0 0 0 1000px $dark-color-1 inset;
+  -webkit-text-fill-color: $light-color-1;
+}
+
+.form-control::placeholder {
+  color: $light-color-2;
+  opacity: 0.8;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 8px $shopapp-color-2;
+}
+
+.divider-nospace {
+  border-top: 1px solid $light-color-1;
+}
+
+.password-field .input-wrapper {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(50%);
+  color: $shopapp-title-color;
+  cursor: pointer;
+}
+
+// Form for remember / forget password
+.checkbox-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkbox-form input[type="checkbox"]:checked {
+  background-color: $shopapp-color-1;
+  box-shadow: 0 0 5px rgba($color: $light-color-1, $alpha: 1);
+  border: none;
+}
+
+.forgot-password,
+.register-link {
+  text-decoration: none;
+  color: $shopapp-title-color;
+}
+
+.forgot-password:hover,
+.register-link:hover {
+  color: #2ba6cf;
+}
+
+.access-right {
+  max-width: 20ch;
+  background-color: transparent;
+  color: $light-color-1;
+  border: 2px solid $shopapp-color-1;
+}
+
+.access-right:focus {
+  box-shadow: 0 0 10px $shopapp-color-2;
+}
+
+.access-right option {
+  background-color: $dark-color-1; /* Đặt màu nền của tùy chọn là trong suốt */
+}
+
+.login-btn {
+  margin: 1rem auto;
+  width: 100%;
+  color: $light-color-1;
+  background: linear-gradient(to right, $gradient-color-1, $gradient-color-2);
+  padding: 0.5rem;
+  border: none;
+  border-radius: 1.5rem;
+}
+
+.login-btn:hover {
+  background: linear-gradient(to right, $gradient-color-3, $gradient-color-4);
+}

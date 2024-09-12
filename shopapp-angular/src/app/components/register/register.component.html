@@ -1,0 +1,158 @@
+<div class="container">
+
+  <!-- Angular Form -->
+  <form #registerForm="ngForm" (ngSubmit)="submitForm(registerForm)" novalidate>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="register-form mx-auto">
+          <h2 class="register-header">Đăng ký</h2>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" class="form-control" name="phone"
+              required
+              [(ngModel)]="userRegisterModel.phone"
+              pattern="^\d{10}$"
+              #phone="ngModel" />
+            <div *ngIf="phone.errors && phone.touched || isSubmitted">
+              <p class="text-danger mt-2"
+                *ngIf="phone.errors?.['required']">
+                Số điện thoại không được để trống
+              </p>
+              <p class="text-danger mt-2"
+                *ngIf="phone.errors?.['pattern']">
+                Số điện thoại cần có 10 ký tự
+              </p>
+            </div>
+            <!-- <div class="divider-nospace"></div> -->
+          </div>
+
+          <div class="form-group mt-4 password-field">
+            <label for="password">Mật khẩu</label>
+            <span class="input-wrapper">
+              <input [type]="showPassword ? 'text' : 'password'" id="password"
+                class="form-control"
+                name="password"
+                placeholder="Ít nhất 3 ký tự" required minlength="3"
+                [(ngModel)]="userRegisterModel.password" #password="ngModel" />
+              <ng-container>
+                <i class="fa-solid fa-eye-slash password-toggle"
+                  *ngIf="!showPassword"
+                  (click)="togglePasswordVisibility()"></i>
+                <i class="fa-solid fa-eye password-toggle"
+                  *ngIf="showPassword"
+                  (click)="togglePasswordVisibility()"></i>
+              </ng-container>
+            </span>
+            <div
+              *ngIf="password.errors && password.touched || isSubmitted">
+              <p class="text-danger mt-2"
+                *ngIf="password.errors?.['required']">
+                Mật khẩu không được để trống
+              </p>
+              <p class="text-danger mt-2"
+                *ngIf="password.errors?.['minlength']">
+                Mật khẩu cần có ít nhất 3 ký tự
+              </p>
+            </div>
+            <!-- <div class="divider-nospace"></div> -->
+          </div>
+
+          <div class="form-group mt-4 password-field">
+            <label for="retype-password">Xác nhận mật khẩu</label>
+            <span class="input-wrapper">
+              <input [type]="showPassword ? 'text' : 'password'"
+                id="retype-password" name="retypePassword"
+                class="form-control"
+                placeholder="Ít nhất 3 ký tự" required minlength="3"
+                [(ngModel)]="userRegisterModel.retypePassword"
+                #retypePassword="ngModel" />
+              <ng-container>
+                <i class="fa-solid fa-eye-slash password-toggle"
+                  *ngIf="!showPassword"
+                  (click)="togglePasswordVisibility()"></i>
+                <i class="fa-solid fa-eye password-toggle"
+                  *ngIf="showPassword"
+                  (click)="togglePasswordVisibility()"></i>
+              </ng-container>
+            </span>
+            <div
+              *ngIf="(!checkPasswordMatch() || retypePassword.errors) && retypePassword.touched || isSubmitted">
+              <p class="text-danger mt-2"
+                *ngIf="retypePassword.errors?.['required']">
+                Xác nhận mật khẩu không được để trống
+              </p>
+              <p class="text-danger mt-2"
+                *ngIf="password.errors?.['minlength']">
+                Mật khẩu cần có ít nhất 3 ký tự
+              </p>
+              <p class="text-danger mt-2"
+                *ngIf="!checkPasswordMatch() && !retypePassword.errors">
+                Mật khẩu không khớp
+              </p>
+            </div>
+            <!-- <div class="divider-nospace"></div> -->
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="full-name">Họ và tên</label>
+            <input type="text" id="full-name" class="form-control"
+              name="fullName"
+              required
+              [(ngModel)]="userRegisterModel.fullName" />
+            <!-- <div class="divider-nospace"></div> -->
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="date-of-birth">Ngày sinh</label>
+            <input type="date" id="date-of-birth" class="form-control"
+              name="dateOfBirth" required
+              [(ngModel)]="userRegisterModel.dateOfBirth"
+              #dateOfBirth="ngModel" />
+            <div
+              *ngIf="(!checkAge() || dateOfBirth.errors) && dateOfBirth.touched || isSubmitted">
+              <p class="text-danger mt-2"
+                *ngIf="dateOfBirth.errors?.['required']">
+                Ngày sinh không thể để trống
+              </p>
+              <p class="text-danger mt-2"
+                *ngIf="!checkAge()">
+                Ngày sinh không hợp lệ hoặc bạn chưa đủ 18 tuổi
+              </p>
+            </div>
+            <!-- <div class="divider-nospace"></div> -->
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="address">Địa chỉ</label>
+            <input type="text" id="address" class="form-control" name="address"
+              [(ngModel)]="userRegisterModel.address" />
+            <!-- <div class="divider-nospace"></div> -->
+          </div>
+
+          <div class="form-group mt-4">
+            <div class="form-check checkbox-form">
+              <span>
+                <input class="form-check-input" type="checkbox" value
+                  id="remember" name="isAccepted"
+                  [(ngModel)]="userRegisterModel.isAccepted">
+                <label class="form-check-label text-start" for="remember">
+                  Tôi đồng ý với các điều khoản và điều kiện
+                </label>
+              </span>
+            </div>
+          </div>
+          <button class="register-btn" type="submit"
+            [class.btn-disabled]="!validateForm(registerForm)">
+            Đăng ký
+          </button>
+          <p class="text-center">Đã tài khoản?
+            <span>
+              <a href="#" class="login-link"
+                routerLink="/login">Đăng nhập</a>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

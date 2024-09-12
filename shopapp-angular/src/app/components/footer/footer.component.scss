@@ -1,0 +1,10 @@
+@import "../../styles/shared-styles.scss";
+
+// Footer
+.footer {
+  background-color: $shopapp-background-color;
+  padding: 1rem;
+  .container {
+    color: $light-color-1;
+  }
+}

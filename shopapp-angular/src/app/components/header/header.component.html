@@ -1,0 +1,74 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-custom">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/home">AppLogo</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
+          <li class="nav-item">
+            <a class="nav-link"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact: true}"
+              aria-current="page" routerLink="/home">Trang chủ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              routerLink="/">
+              <i class="fa-solid fa-bell"></i> Thông báo
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              routerLink="/orders">
+              <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <ng-container *ngIf="userDetail">
+              <div [ngbPopover]="popoverContent"
+                triggers="click"
+                placement="bottom"
+                [autoClose]="true"
+                popoverClass="custom-popover">
+                <button class="nav-link" type="button">
+                  <i class="fa-solid fa-user"></i> {{ userDetail.fullname }}
+                </button>
+              </div>
+              <ng-template #popoverContent class="custom-popover">
+                <ul class="popover-list">
+                  <li class="popover-item">
+                    <a (click)="handleItemClick(0)">Thông tin tài khoản</a>
+                  </li>
+                  <li class="popover-item">
+                    <a (click)="handleItemClick(1)">Đơn mua</a>
+                  </li>
+                  <li class="popover-item">
+                    <a (click)="handleItemClick(2)">Đăng xuất</a>
+                  </li>
+                </ul>
+              </ng-template>
+            </ng-container>
+
+            <ng-container *ngIf="!userDetail">
+              <a class="nav-link" routerLink="/login">Đăng nhập</a>
+            </ng-container>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

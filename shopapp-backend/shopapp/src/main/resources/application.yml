@@ -1,0 +1,48 @@
+spring:
+  profiles:
+    include: secrets.yml
+  application:
+    name: shopapp
+#  servlet:
+#    multipart:
+#      max-file-size: 10MB
+#      max-request-size: 10MB
+
+  # Datasource Configuration
+  datasource:
+    drive-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOSTNAME}:${DB_PORT}/${DB_DATABASE_NAME}?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  # For development
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+  # Language resources
+  messages:
+    basename: i18n/messages
+
+server:
+  port: 8088
+
+api:
+  prefix: /api/v1
+
+# Global Logging
+logging:
+  level:
+    root: INFO
+    org.springframework.security: DEBUG
+
+
+# JWT expiration
+jwt:
+  expiration: 2592000   # 30 days - Unit: second
+  secretKey: gboUTKTHk7v87DS89d+SOtKTQnBPRWwT4BSfeimMxMo=

@@ -1,0 +1,44 @@
+@import "../../styles/shared-styles.scss";
+
+.user-detail-title {
+  color: $shopapp-title-color;
+}
+
+.form-control {
+  color: $light-color-1;
+  background-color: $shopapp-background-color;
+  border: 1px solid $shopapp-color-1;
+}
+
+.form-control::placeholder {
+  color: $light-color-2;
+}
+
+.form-control:focus {
+  outline: 2px solid #6600ff;
+}
+
+.form-control::-webkit-datetime-edit-day-field:focus,
+.form-control::-webkit-datetime-edit-month-field:focus,
+.form-control::-webkit-datetime-edit-year-field:focus {
+  background-color: red;
+  color: $light-color-1;
+  outline: none;
+}
+
+.form-control[readonly] {
+  background-color: $dark-color-2;
+}
+
+.password-field .input-wrapper {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(50%);
+  color: $shopapp-title-color;
+  cursor: pointer;
+}

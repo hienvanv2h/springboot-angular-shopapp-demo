@@ -1,0 +1,27 @@
+@import "../../styles/shared-styles.scss";
+
+.product-header,
+.coupon-header {
+  color: $shopapp-color-2;
+}
+
+// Form
+.form-control {
+  color: $light-color-1;
+  background-color: $shopapp-background-color;
+  border: 1px solid $shopapp-color-1;
+}
+
+.form-control::placeholder {
+  color: $light-color-2;
+}
+
+.form-control:focus {
+  outline: 2px solid #6600ff;
+}
+
+.product-order {
+  color: $shopapp-title-color;
+}
+
+// Shared style in style.scss

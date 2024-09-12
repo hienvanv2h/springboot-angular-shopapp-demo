@@ -1,0 +1,42 @@
+@import "../../styles/shared-styles.scss";
+
+// Navbar
+.navbar.navbar-custom {
+  background-color: $shopapp-background-color !important;
+  .navbar-nav .nav-item .nav-link.active {
+    background-color: $shopapp-color-1;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .custom-popover {
+    max-width: 200px; /* Đảm bảo popover không quá rộng */
+    background-color: $shopapp-background-color;
+    color: $light-color-1;
+  }
+
+  .popover-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .popover-item {
+    padding: 10px;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+
+  .popover-item a {
+    text-decoration: none;
+    color: $light-color-1;
+  }
+
+  .popover-item:hover {
+    background-color: #303030;
+  }
+
+  .popover-item:hover a {
+    color: $shopapp-title-color;
+  }
+}
